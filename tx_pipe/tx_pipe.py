@@ -15,6 +15,7 @@ radio = RF24(CE_PIN, CSN_PIN)
 """
 if not radio.begin():
     print("радиомодуль не подключен")
+    
 
 # уровень мощности передатчика, чем выше мощность, тем дальше и лучше сигнал
 radio.setPALevel(RF24_PA_MAX)
@@ -44,5 +45,10 @@ while(1):
         data = b"\x00"
     
     report = radio.write(data)
-    print("Sent:", data, "OK" if report else "FAIL")
+    if report:
+        print(data, "OK")
+    else:
+        print("Ошибка")
+
+    #print("Sent:", data, "OK" if report else "FAIL")
     time.sleep(1)
