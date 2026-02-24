@@ -55,3 +55,8 @@ python site.py
 **`render_template` в задаче планировщика** — планировщик работает вне контекста HTTP-запроса, возвращать HTML некому.
 
 **Страница не обновляется сама** — добавь `<meta http-equiv="refresh" content="5">` в HTML.
+
+## Документация
+https://docs-python.ru/packages/modul-apscheduler-python/
+https://docs-python.ru/packages/veb-frejmvork-flask-python/rasshirenie-flask-apscheduler/
+https://viniciuschiele.github.io/flask-apscheduler/rst/usage.html
