@@ -12,7 +12,7 @@ def index():
 sched = APScheduler()
 @sched.task('interval', id='do_job_1', seconds=5, misfire_grace_time=900)
 def job1():
-    global count  # нужен, когда хочешь изменить внешнюю переменную внутри функции
+    global count  # нужен, когда хочешь изменить внешнюю переменную
     count += 1
 
 
