@@ -3,7 +3,7 @@
 
 #define LED 7
 RF24 radio(9, 10);
-uint8_t pipe1_addr[5] = {0x01, 0x02, 0x03, 0x04, 0x05};
+uint8_t pipe1_addr[5] = {"1Node"};
 
 void setup() {
   Serial.begin(9600);
@@ -24,7 +24,7 @@ void setup() {
   radio.setChannel(76);
   radio.setPayloadSize(1);  // размер пакета (полезной нагрузки) - 1 байт (1 или 0)
 
-  radio.openReadingPipe(1, pipe1_addr);
+  radio.openReadingPipe(0, pipe1_addr);
   radio.startListening();
 
   Serial.println("Listening...");
