@@ -60,3 +60,4 @@ python site.py
 https://docs-python.ru/packages/modul-apscheduler-python/
 https://docs-python.ru/packages/veb-frejmvork-flask-python/rasshirenie-flask-apscheduler/
 https://viniciuschiele.github.io/flask-apscheduler/rst/usage.html
+https://apscheduler.readthedocs.io/en/3.x/
