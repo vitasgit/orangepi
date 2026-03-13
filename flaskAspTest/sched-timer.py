@@ -7,16 +7,13 @@ import time
 app = Flask(__name__)
 sched = APScheduler()
 
-hour = 06  # глобальная переменная, получаем значение из формы по запросу
-minute = 00
+#@sched.task('cron', id='do_job_1', hour=hour, minute=minute week="*")
+def job1():
+    send_cmd("1")
 
-##@sched.task('cron', id='do_job_1', hour=hour, minute=minute week="*")
-##def job1():
-##    send_cmd("1")
-##
-##@sched.task('cron', id='do_job_2', hour="07", minute="00" week="*")
-##def job2():
-##    send_cmd("0")
+#@sched.task('cron', id='do_job_2', hour="07", minute="00" week="*")
+def job2():
+    send_cmd("0")
 
 
 def send_cmd(cmd):
@@ -40,7 +37,7 @@ def send_cmd(cmd):
 def index():
     if request.method == "POST":
         cmd = request.form.get('submit')  # обращаемся к полю submit (name="submit")
-        cmd = request.form['submit']  # обращаемся к полю как к ключу словаря
+        #cmd = request.form['submit']  # обращаемся к полю как к ключу словаря
         #print(cmd)  # отладка
         res = send_cmd(cmd)
         if res:
@@ -53,16 +50,19 @@ def index():
 def timer_on():
     if request.method == "POST":
         print("awdwaadw")  # отладка
-        t_on = request.form.get('time_on')  # обращаемся к инпуту time_on (name="time_on")
-        t_on = request.form['time_on']  # обращаемся к полю как к ключу словаря
+        t_on = request.form.get('time_on')
         t_off = request.form.get('time_off')
-        t_off = request.form['time_off'] 
+
+        h_on = int(t_on.split(":")[0])  # делаем сплит, а потом берем первое значение
+        m_on = int(t_on.split(":")[1])  # делаем сплит, а потом берем второе значение
+        h_off = int(t_off.split(":")[0])
+        m_off = int(t_off.split(":")[1])
         print(t_on)  # отладка
         print(t_off)  # отладка
 
         # sched.add_job(<id>,<function>, **kwargs)
-        # sched.add_job(send_cmd, 'cron', hour=??, minute=??, args=1)  # включение
-        # sched.add_job(send_cmd, 'cron', hour=??, minute=??, args=0)  # выключение
+        sched.add_job('job_1', send_cmd, trigger='cron', hour=h_on, minute=m_on, args=['1'])  # включение
+        sched.add_job('job_2', send_cmd, trigger='cron', hour=h_off, minute=m_off, args=['0'])  # выключение
     
     return render_template('timer.html')
 
