@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная</title>
+</head>
+<body>
+   <!-- Как отправлять запрос на сервер? как отправить часы и минуты -->
+   <form action="/timer" method="post">
+     <label for="time_on">Выберите время включения:</label>
+     <input type="time" name="time_on">
+     <br>
+
+     <label for="time_off">Выберите время выключения:</label>
+     <input type="time" name="time_off">
+     <br>
+
+     <button type="submit" name="submit">Ок</button>
+   </form>
+</body>
+</html>
