@@ -7,11 +7,9 @@ import time
 app = Flask(__name__)
 sched = APScheduler()
 
-#@sched.task('cron', id='do_job_1', hour=hour, minute=minute week="*")
 def job1():
     send_cmd("1")
 
-#@sched.task('cron', id='do_job_2', hour="07", minute="00" week="*")
 def job2():
     send_cmd("0")
 
@@ -22,15 +20,15 @@ def send_cmd(cmd):
     elif cmd == "0":
         data = b"\x00"
     
-    report = radio.write(data)
-    
-    # if report:
-    #     print(data, "OK")
-    # else:
-    #     print("Ошибка")
+    res = radio.write(data)
+    # не работает(всегда false), нужно проверить auto-ack 
+    #if res:
+    #    print(data, "OK")
+    #else:
+    #    print(data, "ошибка")
 
     time.sleep(1)
-    return report
+    return res
 
 
 @app.route("/", methods=["POST", "GET"])
@@ -39,17 +37,25 @@ def index():
         cmd = request.form.get('submit')  # обращаемся к полю submit (name="submit")
         #cmd = request.form['submit']  # обращаемся к полю как к ключу словаря
         #print(cmd)  # отладка
-        res = send_cmd(cmd)
-        if res:
-            print("ОК")
-    
+        send_cmd(cmd)
+        
     return render_template('index.html')
 
 
 @app.route("/timer", methods=["POST", "GET"])
 def timer_on():
     if request.method == "POST":
-        print("awdwaadw")  # отладка
+        print("ЗАДАЧИ")  # отладка
+        print(sched.get_jobs())
+
+        # исправить 
+        if request.form.get('turn_off'):
+            try:
+                sched.remove_all_jobs()
+                print(sched.get_jobs())
+            except:
+                return
+        
         t_on = request.form.get('time_on')
         t_off = request.form.get('time_off')
 
@@ -61,9 +67,15 @@ def timer_on():
         print(t_off)  # отладка
 
         # sched.add_job(<id>,<function>, **kwargs)
-        sched.add_job('job_1', send_cmd, trigger='cron', hour=h_on, minute=m_on, args=['1'])  # включение
-        sched.add_job('job_2', send_cmd, trigger='cron', hour=h_off, minute=m_off, args=['0'])  # выключение
-    
+        # исправить
+        try:
+            sched.remove_all_jobs()
+        except:
+            sched.add_job('job_1', send_cmd, trigger='cron', hour=h_on, minute=m_on, args=['1'])  # включение
+            sched.add_job('job_2', send_cmd, trigger='cron', hour=h_off, minute=m_off, args=['0'])  # выключение
+
+        print(sched.get_jobs())
+        
     return render_template('timer.html')
 
 
