@@ -1,6 +1,7 @@
-![[mosfet.jpg]]
-![[mosfet-ard.jpg]]
-![[mosfet-air.jpg]]
+![](mosfet.jpg)
+![](mosfet-ard.jpg)
+![](mosfet-air.jpg)
+
 
 ## Ссылки
 https://robotchip.ru/obzor-drayvera-s-paroy-mosfet-na-aod4184/
