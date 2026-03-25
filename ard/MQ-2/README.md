@@ -1,1 +1,1 @@
-![](circle.jpg)
+![](circle.jpeg)
