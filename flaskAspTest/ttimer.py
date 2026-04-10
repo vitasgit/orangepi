@@ -45,17 +45,7 @@ def index():
 @app.route("/timer", methods=["POST", "GET"])
 def timer_on():
     if request.method == "POST":
-        print("ЗАДАЧИ")  # отладка
-        print(sched.get_jobs())
-
-        # исправить (что исправить?)
-        if request.form.get('turn_off'):
-            try:
-                sched.remove_all_jobs()
-                print(sched.get_jobs())
-            except:
-                return
-        
+        print("awdwaadw")  # отладка
         t_on = request.form.get('time_on')
         t_off = request.form.get('time_off')
 
@@ -65,17 +55,12 @@ def timer_on():
         m_off = int(t_off.split(":")[1])
         print(t_on)  # отладка
         print(t_off)  # отладка
+        print(time.ctime())
 
         # sched.add_job(<id>,<function>, **kwargs)
-        # исправить
-        try:
-            sched.remove_all_jobs()
-        except:
-            sched.add_job('job_1', send_cmd, trigger='cron', hour=h_on, minute=m_on, args=['1'])  # включение
-            sched.add_job('job_2', send_cmd, trigger='cron', hour=h_off, minute=m_off, args=['0'])  # выключение
-
+        sched.add_job('job_1', send_cmd, trigger='cron', hour=h_on, minute=m_on, args=['1'], replace_existing=True)  # включение
+        sched.add_job('job_2', send_cmd, trigger='cron', hour=h_off, minute=m_off, args=['0'], replace_existing=True)  # выключение
         print(sched.get_jobs())
-        
     return render_template('timer.html')
 
 
