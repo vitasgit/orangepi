@@ -82,7 +82,7 @@ if __name__ == '__main__':
     radio.setPayloadSize(1);             # пакет данных размером 1 байт (бубу передавать 1 или 0)
     radio.setChannel(76)                 # выбираем канал передачи данных с самыми низкими помехами
     radio.powerUp();                     # режим передачи (повышенного потребления), powerDown - режим ожидания
-    radio.openWritingPipe(pipe1_addr);   # открыть канал на отправку
+    radio.openWritingPipe(pipe1_addr);   # открыть канал(трубу) на отправку
     radio.stopListening()                # режим передачи
 
     sched.api_enabled = True

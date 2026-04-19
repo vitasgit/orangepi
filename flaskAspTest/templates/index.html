@@ -4,16 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="../static/css/style.css">
     <title>Главная</title>
 </head>
 <body>
-   <h1>Светодиод</h1>
-   <form action="/" method="post">
-        <button type="submit" name="submit" value="1" >Включить</button><br><br>
-        <button type="submit" name="submit" value="0" >Выключить</button><br><br>
-   </form>
+    <div class="page">
+        <form action="/" method="post">
+        <fieldset>
+            <legend>Светодиод</legend>
+            <button type="submit" name="submit" value="1" >Включить</button>
+            <button type="submit" name="submit" value="0" >Выключить</button>
+        </fieldset>
+        </form>
 
-   <!-- ссылка без .html иначе декоратор выдает ошибку -->
-   <a href="timer">Поставить время включения-выключения диода</a>
+        <form action="/timer" method="post">
+        <fieldset>
+            <legend>Будильник</legend>
+            <label for="time_on">Выберите время включения:</label>
+            <input type="time" name="time_on">
+
+            <label for="time_off">Выберите время выключения:</label>
+            <input type="time" name="time_off">
+
+            <button type="submit" name="submit">Ок</button>
+            <button type="submit" name="turn_off" value="turn_off" >Выключить</button>
+        </fieldset>
+        </form>
+
+        <!-- ссылка без .html иначе декоратор выдает ошибку -->
+        <a href="timer">Поставить время включения-выключения диода</a>
+    </div>
 </body>
 </html>
